@@ -18,7 +18,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 
 		public async Task AddProfesores(Profesores profesor) 
 		{
-			var procedure = "InsertProfesores";
+			var procedure = "[Stored_Procedures].[InsertProfesores]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
@@ -26,15 +26,24 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 				Nombre         = profesor.Nombre,
 				Apellido       = profesor.Apellido,
 				Edad           = profesor.Edad,
-				Dirección      = profesor.Direccion,
-				Teléfono       = profesor.Telefono
+				Direccion      = profesor.Direccion,
+				Telefono       = profesor.Telefono
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw(ex);
+			}
+			
 		}
 
 		public async Task UpdateProfesores(Profesores profesor)
 		{
-			var procedure = "UpdateProfesores";
+			var procedure = "[Stored_Procedures].[UpdateProfesores]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
@@ -42,8 +51,8 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 				Nombre = profesor.Nombre,
 				Apellido = profesor.Apellido,
 				Edad = profesor.Edad,
-				Dirección = profesor.Direccion,
-				Teléfono = profesor.Telefono
+				Direccion = profesor.Direccion,
+				Telefono = profesor.Telefono
 			};
 			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
 		}

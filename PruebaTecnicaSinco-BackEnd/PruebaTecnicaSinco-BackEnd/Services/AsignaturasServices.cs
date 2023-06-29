@@ -16,9 +16,13 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 		{
 			_asignaturasRepositories.AddAsignaturas(asignatura);
 		}
-		public void AddAsgintauraToProfesor(Asignaturas asignatura)
+		public void AddAsgintauraToProfesor(Calificaciones calificaciones)
 		{
-			_asignaturasRepositories.AddAsgintauraToProfesor(asignatura);
+			_asignaturasRepositories.AddAsgintauraToProfesor(calificaciones);
+		}
+		public void AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura)
+		{
+			_asignaturasRepositories.AsignarProfesorAAsignatura(identificacionProfesor, codigoAsignatura);
 		}
 	}
 }

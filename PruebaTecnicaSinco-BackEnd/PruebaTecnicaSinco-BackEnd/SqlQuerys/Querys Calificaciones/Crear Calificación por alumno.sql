@@ -1,4 +1,4 @@
-	CREATE OR ALTER PROCEDURE CreacionCalificaciones
+	CREATE OR ALTER PROCEDURE [Stored_Procedures].[CreacionCalificaciones]
 	(
 	      @IdCalificaciones UNIQUEIDENTIFIER,
           @AñoAcademico VARCHAR(MAX),

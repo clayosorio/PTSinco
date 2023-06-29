@@ -11,7 +11,5 @@ namespace PruebaTecnicaSinco_BackEnd.Models.ModelRequest
         public int Edad { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public string CodigoAsignatura { get; set; }
-        public Asignaturas Asignatura { get; set; }
     }
 }

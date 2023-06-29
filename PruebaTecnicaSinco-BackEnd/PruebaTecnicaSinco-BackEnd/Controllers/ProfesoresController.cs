@@ -24,7 +24,7 @@ namespace PruebaTecnicaSinco_BackEnd.Controllers
 		[HttpPut]
 		public IActionResult UpdateProfesores(Profesores profesor)
 		{
-			_profesoresServices.AddProfesores(profesor);
+			_profesoresServices.UpdateProfesores(profesor);
 			return Ok();
 		}
 	}
