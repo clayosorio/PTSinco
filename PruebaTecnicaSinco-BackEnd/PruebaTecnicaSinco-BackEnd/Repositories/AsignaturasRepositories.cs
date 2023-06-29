@@ -16,27 +16,61 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 
 		public async Task AddAsignaturas(Asignaturas asignatura)
 		{
-			var procedure = "InsertAsignaturas";
+			var procedure = "[Stored_Procedures].[InsertAsignaturas]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
 				Codigo = asignatura.CodigoAsignatura,
 				Nombre = asignatura.Nombre
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			
 		}
 
-		public async Task AddAsgintauraToProfesor(Asignaturas asignatura)
+		public async Task AddAsgintauraToProfesor(Calificaciones calificaciones)
 		{
-			var procedure = "AddAsgintauraToProfesor";
+			var procedure = "[Stored_Procedures].[CreacionCalificaciones]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
-				Codigo = asignatura.CodigoAsignatura,
-				Nombre = asignatura.Nombre,
-				IdentificacionProfesor = asignatura.IdentificacionProfesor
+				AnoAcademico         = calificaciones.AnoAcademico,
+				IdentificacionAlumno = calificaciones.IdentificacionAlumno,
+				NombreAlumno         = calificaciones.NombreAlumno,
+				CodigoAsignatura     = calificaciones.CodigoAsignatura,
+				NombreAsignatura     = calificaciones.NombreAsignatura
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw(ex);
+			}
+			
+		}
+
+		public async Task AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura)
+		{
+			var procedure = "[Stored_Procedures].[AsignarProfesorAAsignatura]";
+			var command = CommandType.StoredProcedure;
+			var parameters = new
+			{
+				IdentificacionProfesor = identificacionProfesor,
+				CodigoAsignatura = codigoAsignatura
+			};
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw (ex);
+			}
+
 		}
 	}
 }

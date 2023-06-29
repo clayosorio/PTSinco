@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Models\ModelResponses\" />
-    <Folder Include="SqlQuerys\" />
   </ItemGroup>
 
 </Project>

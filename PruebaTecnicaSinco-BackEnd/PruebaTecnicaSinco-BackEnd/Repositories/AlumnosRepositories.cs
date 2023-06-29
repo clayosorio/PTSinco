@@ -11,12 +11,12 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 		private readonly string _connectionString;
 		public AlumnosRepositories(IConfiguration configuration)
 		{
-			_connectionString = configuration.GetConnectionString("conecctionGoSell");
+			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
 		public async Task AddAlumnos(Alumnos alumno)
 		{
-			var procedure = "InsertAlumnos";
+			var procedure = "[Stored_Procedures].[InsertAlumnos]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
@@ -24,14 +24,23 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				Nombre         = alumno.Nombre,
 				Apellido       = alumno.Apellido,
 				Edad		   = alumno.Edad,	
-				Dirección	   = alumno.Direccion,	
-				Teléfono	   = alumno.Telefono
+				Direccion	   = alumno.Direccion,	
+				Telefono	   = alumno.Telefono
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw(ex);
+			}
+			
 		}
 		public async Task UpdateAlumnos(Alumnos alumno)
 		{
-			var procedure = "UpdateAlumnos";
+			var procedure = "[Stored_Procedures].[UpdateAlumnos]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
@@ -39,20 +48,38 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				Nombre = alumno.Nombre,
 				Apellido = alumno.Apellido,
 				Edad = alumno.Edad,
-				Dirección = alumno.Direccion,
-				Teléfono = alumno.Telefono
+				Direccion = alumno.Direccion,
+				Telefono = alumno.Telefono
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw(ex);
+			}
 		}
 		public async Task DeleteAlumnos(string identificacionAlumno)
 		{
-			var procedure = "DeleteAlumnoByIdentificacion";
+			var procedure = "[Stored_Procedures].[DeleteAlumnoByIdentificacion]";
 			var command = CommandType.StoredProcedure;
 			var parameters = new
 			{
 				IdentificacionAlumno = identificacionAlumno
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex)
+			{
+
+				throw(ex);
+			}
+			
 		}
 	}
 }
