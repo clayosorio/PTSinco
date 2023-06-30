@@ -1,13 +1,13 @@
 CREATE OR ALTER PROCEDURE [Stored_Procedures].[InsertAlumnos]
 (
 	@Identificacion NVARCHAR(450),
-	@Nombre         NVARCHAR(MAX), 
-	@Apellido       NVARCHAR(MAX),
-	@Edad		    NVARCHAR(MAX),
-	@Direccion	    NVARCHAR(MAX),
-	@Telefono	    NVARCHAR(MAX),
-	@AnoAcademico   NVARCHAR(MAX),
-	@CodeAsignatura NVARCHAR(MAX)
+	@Nombre         NVARCHAR(MAX) = NULL, 
+	@Apellido       NVARCHAR(MAX) = NULL,
+	@Edad		    NVARCHAR(MAX) = NULL,
+	@Direccion	    NVARCHAR(MAX) = NULL,
+	@Telefono	    NVARCHAR(MAX) = NULL,
+	@AnoAcademico   NVARCHAR(MAX) = NULL,
+	@CodeAsignatura NVARCHAR(MAX) = NULL
 )
 AS 
 BEGIN 
