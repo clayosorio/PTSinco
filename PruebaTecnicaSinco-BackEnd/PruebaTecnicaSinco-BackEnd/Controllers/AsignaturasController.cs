@@ -17,28 +17,34 @@ namespace PruebaTecnicaSinco_BackEnd.Controllers
 		[HttpPost]
 		public IActionResult AddAsignaturas(Asignaturas asignatura) 
 		{
-			_asignaturasServices.AddAsignaturas(asignatura);
-			return Ok();
+				_asignaturasServices.AddAsignaturas(asignatura);
+				return Ok();
 		}
 		[HttpPost]
-		public IActionResult AddAsgintauraToProfesor(Calificaciones calificaciones)
+		public IActionResult AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones)
 		{
-			try
-			{
-				_asignaturasServices.AddAsgintauraToProfesor(calificaciones);
+				_asignaturasServices.AddCalificacionWithProfesorAndAlumno(calificaciones);
 				return Ok();
-			}
-			catch (Exception ex)
-			{
-
-				return BadRequest(ex.Message);
-			}
 		}
 		[HttpPut]
 		public IActionResult AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura)
 		{
 			_asignaturasServices.AsignarProfesorAAsignatura(identificacionProfesor, codigoAsignatura);
 			return Ok();
+		}
+
+		[HttpPut]
+		public IActionResult AgregarNotaToCalificacion(string identificacionProfesor, string identificacionAlumno, double calificacionFinal)
+		{
+				_asignaturasServices.AgregarNotaToCalificacion(identificacionProfesor, identificacionAlumno, calificacionFinal);
+				return Ok();
+		}
+
+		[HttpGet]
+		public IActionResult GetReporteNotas()
+		{
+			var res = _asignaturasServices.GetReporteNotas();
+			return Ok(res);
 		}
 
 	}

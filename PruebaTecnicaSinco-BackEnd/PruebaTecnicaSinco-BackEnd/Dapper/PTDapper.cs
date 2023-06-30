@@ -10,7 +10,7 @@ namespace PruebaTecnicaSinco_BackEnd.Dapper
 		   string _connectionString,
 		   string storedProcedureName,
 		   CommandType commandType,
-		   object parameters = null)
+		   object? parameters = null)
 		{
 			using (var connection = new SqlConnection(_connectionString))
 			{
@@ -27,7 +27,7 @@ namespace PruebaTecnicaSinco_BackEnd.Dapper
 			string _connectionString,
 			string storedProcedureName,
 			CommandType commandType,
-			object parameters = null)
+			object? parameters = null)
 		{
 			using (var connection = new SqlConnection(_connectionString))
 			{

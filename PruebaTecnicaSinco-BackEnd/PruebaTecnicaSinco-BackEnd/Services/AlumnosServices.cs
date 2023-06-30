@@ -1,4 +1,5 @@
-﻿using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
+﻿using Microsoft.IdentityModel.Tokens;
+using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
 using PruebaTecnicaSinco_BackEnd.Services.IServices;
 
@@ -13,7 +14,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 		}
         public void AddAlumnos(Alumnos alumno)
 		{
-			_alumnosRepositories.AddAlumnos(alumno);
+            _alumnosRepositories.AddAlumnos(alumno);
 		}
 		public void UpdateAlumnos(Alumnos alumno)
 		{
