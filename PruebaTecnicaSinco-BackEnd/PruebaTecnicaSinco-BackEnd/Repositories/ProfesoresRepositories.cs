@@ -33,12 +33,8 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 			{
 				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
 			}
-			catch (Exception ex)
-			{
+			catch (Exception ex) { throw (ex); }
 
-				throw(ex);
-			}
-			
 		}
 
 		public async Task UpdateProfesores(Profesores profesor)
@@ -54,7 +50,12 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 				Direccion = profesor.Direccion,
 				Telefono = profesor.Telefono
 			};
-			await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			try
+			{
+				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
+			}
+			catch (Exception ex) { throw (ex); }
+			
 		}
     }
 }
