@@ -4,7 +4,7 @@ namespace PruebaTecnicaSinco_BackEnd.Repositories.IRepositories
 {
 	public interface IProfesoresRepositories
 	{
-		Task AddProfesores(Profesores profesor);
-		Task UpdateProfesores(Profesores profesor);
+		void AddProfesores(Profesores profesor);
+		void UpdateProfesores(Profesores profesor);
 	}
 }

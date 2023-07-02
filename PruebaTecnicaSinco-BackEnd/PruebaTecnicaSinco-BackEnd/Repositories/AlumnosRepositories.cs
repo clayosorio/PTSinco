@@ -14,7 +14,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
-		public async Task AddAlumnos(Alumnos alumno)
+		public void AddAlumnos(Alumnos alumno)
 		{
 			var procedure = "[Stored_Procedures].[InsertAlumnos]";
 			var command = CommandType.StoredProcedure;
@@ -27,13 +27,9 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				Direccion	   = alumno.Direccion,	
 				Telefono	   = alumno.Telefono
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
-		public async Task UpdateAlumnos(Alumnos alumno)
+		public void UpdateAlumnos(Alumnos alumno)
 		{
 			var procedure = "[Stored_Procedures].[UpdateAlumnos]";
 			var command = CommandType.StoredProcedure;
@@ -47,13 +43,9 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				Telefono = alumno.Telefono
 			};
 
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
-		public async Task DeleteAlumnos(string identificacionAlumno)
+		public void DeleteAlumnos(string identificacionAlumno)
 		{
 			var procedure = "[Stored_Procedures].[DeleteAlumnoByIdentificacion]";
 			var command = CommandType.StoredProcedure;
@@ -61,11 +53,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 			{
 				IdentificacionAlumno = identificacionAlumno
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
 	}
 }

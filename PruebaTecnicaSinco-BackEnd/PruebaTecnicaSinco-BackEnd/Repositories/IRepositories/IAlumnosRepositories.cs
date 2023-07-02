@@ -4,8 +4,8 @@ namespace PruebaTecnicaSinco_BackEnd.Repositories.IRepositories
 {
 	public interface IAlumnosRepositories
 	{
-		Task AddAlumnos(Alumnos alumno);
-		Task UpdateAlumnos(Alumnos alumno);
-		Task DeleteAlumnos(string identificacionAlumno);
+		void AddAlumnos(Alumnos alumno);
+		void UpdateAlumnos(Alumnos alumno);
+		void DeleteAlumnos(string identificacionAlumno);
 	}
 }

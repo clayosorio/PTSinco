@@ -3,6 +3,7 @@ using PruebaTecnicaSinco_BackEnd.Dapper;
 using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
 using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
+using PruebaTecnicaSinco_BackEnd.Services.IServices;
 using System.Data;
 
 namespace PruebaTecnicaSinco_BackEnd.Services
@@ -16,7 +17,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
-		public async Task AddAsignaturas(Asignaturas asignatura)
+		public void AddAsignaturas(Asignaturas asignatura)
 		{
 			var procedure = "[Stored_Procedures].[InsertAsignaturas]";
 			var command = CommandType.StoredProcedure;
@@ -25,15 +26,10 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				Codigo = asignatura.CodigoAsignatura,
 				Nombre = asignatura.Nombre
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
-
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
 
-		public async Task AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones)
+		public void AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones)
 		{
 			var procedure = "[Stored_Procedures].[CreacionCalificaciones]";
 			var command = CommandType.StoredProcedure;
@@ -46,14 +42,10 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				NombreAsignatura     = calificaciones.NombreAsignatura
 			};
 
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
 
-		public async Task AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura)
+		public void AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura)
 		{
 			var procedure = "[Stored_Procedures].[AsignarProfesorAAsignatura]";
 			var command = CommandType.StoredProcedure;
@@ -63,14 +55,10 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				CodigoAsignatura = codigoAsignatura
 			};
 
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
 
-		public async Task AgregarNotaToCalificacion(string identificacionProfesor, string identificacionAlumno, double calificacionFinal)
+		public void AgregarNotaToCalificacion(string identificacionProfesor, string identificacionAlumno, double calificacionFinal)
 		{
 			var procedure = "[Stored_Procedures].[AsignarNotaACalificacion]";
 			var command = CommandType.StoredProcedure;
@@ -80,20 +68,16 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				IdentificacionAlumno   = identificacionAlumno,
 				CalificacionFinal      = calificacionFinal
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }		
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 		}
 
-		public async Task<IEnumerable<CalificacionesResponse>> GetReporteNotas()
+		public IEnumerable<CalificacionesResponse> GetReporteNotas()
 		{
-			var procedure = "Stored_Procedures.GenerarReporteNotas";
+			var procedure = "[Stored_Procedures].[GenerarReporteNotas]";
 			var command = CommandType.StoredProcedure;
-			
-			var result = await PTDapper.ExecuteStoredProcedureAsync<CalificacionesResponse>(_connectionString, procedure, command);
-			return result;
+
+			var result = PTDapper.ExecuteStoredProcedureAsync<CalificacionesResponse>(_connectionString, procedure, command);
+			return result.Result;
 		}
 	}
 }

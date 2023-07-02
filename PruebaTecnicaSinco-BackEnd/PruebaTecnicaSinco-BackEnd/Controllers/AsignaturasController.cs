@@ -17,7 +17,7 @@ namespace PruebaTecnicaSinco_BackEnd.Controllers
 		[HttpPost]
 		public IActionResult AddAsignaturas(Asignaturas asignatura) 
 		{
-				_asignaturasServices.AddAsignaturas(asignatura);
+				 _asignaturasServices.AddAsignaturas(asignatura);
 				return Ok();
 		}
 		[HttpPost]
