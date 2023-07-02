@@ -7,6 +7,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -26,7 +27,9 @@ builder.Services.AddScoped<IAsignaturasRepositories, AsignaturasRepositories>();
 builder.Services.AddScoped<IProfesoresRepositories, ProfesoresRepositories>();
 
 
+builder.Services.AddCors();
 var app = builder.Build();
+app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,6 +37,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

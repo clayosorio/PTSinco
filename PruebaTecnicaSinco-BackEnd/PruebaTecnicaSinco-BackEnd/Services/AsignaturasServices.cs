@@ -15,7 +15,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 
 		public void AddAsignaturas(Asignaturas asignatura)
 		{
-            _asignaturasRepositories.AddAsignaturas(asignatura);
+			 _asignaturasRepositories.AddAsignaturas(asignatura);
 		}
 		public void AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones)
 		{
@@ -34,7 +34,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 		public IEnumerable<CalificacionesResponse> GetReporteNotas()
 		{ 
 			var result = _asignaturasRepositories.GetReporteNotas();
-			return result.Result;
+			return result;
 		}
 
 	}

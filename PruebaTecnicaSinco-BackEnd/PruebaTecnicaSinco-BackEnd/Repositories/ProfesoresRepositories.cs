@@ -16,7 +16,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
-		public async Task AddProfesores(Profesores profesor) 
+		public void AddProfesores(Profesores profesor) 
 		{
 			var procedure = "[Stored_Procedures].[InsertProfesores]";
 			var command = CommandType.StoredProcedure;
@@ -29,15 +29,12 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 				Direccion      = profesor.Direccion,
 				Telefono       = profesor.Telefono
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
+			
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
 
 		}
 
-		public async Task UpdateProfesores(Profesores profesor)
+		public void UpdateProfesores(Profesores profesor)
 		{
 			var procedure = "[Stored_Procedures].[UpdateProfesores]";
 			var command = CommandType.StoredProcedure;
@@ -50,12 +47,9 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 				Direccion = profesor.Direccion,
 				Telefono = profesor.Telefono
 			};
-			try
-			{
-				await PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters);
-			}
-			catch (Exception ex) { throw (ex); }
 			
+			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
+
 		}
     }
 }
