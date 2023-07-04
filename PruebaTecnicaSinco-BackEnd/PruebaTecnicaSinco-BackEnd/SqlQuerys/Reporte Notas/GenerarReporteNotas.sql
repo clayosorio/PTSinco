@@ -4,24 +4,25 @@ AS
 BEGIN 
 	SET NOCOUNT ON
 
-		BEGIN 
-		SELECT 
+		BEGIN  
+			SELECT 
 			cal.AnoAcademico,
 			al.IdentificacionAlumno,
-			al.Nombre,
+			cal.NombreAlumno,
 			cal.CodigoAsignatura,
 			cal.NombreAsignatura, 
 			pr.IdentificacionProfesor,
-			pr.Nombre,
+			cal.NombreProfesor,
 			cal.CalificacionFinal,
 			cal.Aprobo
 		FROM 
-			Alumnos as al
+			Calificaciones as cal
 		INNER JOIN 
-				Calificaciones as cal ON al.IdentificacionAlumno = cal.IdentificacionAlumno
+				Alumnos as al ON al.IdentificacionAlumno = cal.IdentificacionAlumno
 		INNER JOIN 
 				Asignaturas as asi ON asi.CodigoAsignatura = cal.CodigoAsignatura
 		INNER JOIN 
 				Profesores as pr ON pr.IdentificacionProfesor = asi.IdentificacionProfesor
+		WHERE cal.CalificacionFinal IS NOT NULL
 		END
 END
