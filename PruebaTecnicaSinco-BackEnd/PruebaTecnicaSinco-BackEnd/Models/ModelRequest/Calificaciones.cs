@@ -14,7 +14,7 @@ namespace PruebaTecnicaSinco_BackEnd.Models.ModelRequest
 	      public string  NombreAsignatura { get; set; }
           public string?  IdentificacionProfesor { get; set; }
           public string?  NombreProfesor { get; set; }
-          public double?  CalificacionFinal {get; set; }
+          public string?  CalificacionFinal {get; set; }
           public string? Aprobo { get; set; }
     }
 }
