@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PruebaTecnicaSinco_BackEnd.Dapper;
+﻿using PruebaTecnicaSinco_BackEnd.Dapper;
 using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
 using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
@@ -48,7 +47,10 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 				IdentificacionAlumno = calificaciones.IdentificacionAlumno,
 				NombreAlumno         = calificaciones.NombreAlumno,
 				CodigoAsignatura     = calificaciones.CodigoAsignatura,
-				NombreAsignatura     = calificaciones.NombreAsignatura
+				NombreAsignatura     = calificaciones.NombreAsignatura,
+				IdentificacionProfesor = calificaciones.IdentificacionProfesor,
+				NombreProfesor         = calificaciones.NombreProfesor,
+				CalificacionFinal    = Double.Parse(calificaciones.CalificacionFinal)
 			};
 
 			Task.Run(() => PTDapper.ExecuteStoredProcedureAsyncVoid(_connectionString, procedure, command, parameters)).Wait();
