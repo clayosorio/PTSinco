@@ -5,6 +5,7 @@ namespace PruebaTecnicaSinco_BackEnd.Repositories.IRepositories
 {
 	public interface IAsignaturasRepositories
 	{
+		IEnumerable<Asignaturas> GetAsignaturas();
 		void AddAsignaturas(Asignaturas asignatura);
 		void AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones);
 		void AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura);

@@ -5,6 +5,7 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 {
 	public interface IAsignaturasServices
 	{
+		IEnumerable<Asignaturas> GetAsignaturas();
 		void AddAsignaturas(Asignaturas asignatura);
 		void AddCalificacionWithProfesorAndAlumno(Calificaciones calificaciones);
 		void AsignarProfesorAAsignatura(string identificacionProfesor, string codigoAsignatura);

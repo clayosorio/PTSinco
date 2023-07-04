@@ -1,5 +1,6 @@
 ﻿using PruebaTecnicaSinco_BackEnd.Dapper;
 using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
+using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
 using System.Data;
 using System.Security.Cryptography.Xml;
@@ -14,6 +15,27 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
+		public IEnumerable<Alumnos> GetAlumnos()
+		{
+			var procedure = "[Stored_Procedures].[GetAlumnos]";
+			var command = CommandType.StoredProcedure;
+
+			var result = PTDapper.ExecuteStoredProcedureAsync<Alumnos>(_connectionString, procedure, command);
+			return result.Result;
+		}
+
+		public IEnumerable<Alumnos> GetAlumnoByIdentificacion(string identificacionAlumno)
+		{
+			var procedure = "[Stored_Procedures].[ObtenerAlumnoByIdentificacion]";
+			var command = CommandType.StoredProcedure;
+			var parameters = new
+			{
+				identificacionAlumno = identificacionAlumno
+			};
+
+			var result = PTDapper.ExecuteStoredProcedureAsync<Alumnos>(_connectionString, procedure, command, parameters);
+			return result.Result;
+		}
 		public void AddAlumnos(Alumnos alumno)
 		{
 			var procedure = "[Stored_Procedures].[InsertAlumnos]";

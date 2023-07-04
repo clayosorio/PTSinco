@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
+using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
 using PruebaTecnicaSinco_BackEnd.Services.IServices;
 
@@ -12,7 +13,19 @@ namespace PruebaTecnicaSinco_BackEnd.Services
         {
 			_alumnosRepositories = alumnosRepositories;
 		}
-        public void AddAlumnos(Alumnos alumno)
+
+		public IEnumerable<Alumnos> GetAlumnos()
+		{
+			var res = _alumnosRepositories.GetAlumnos();
+			return res;
+		}
+		public IEnumerable<Alumnos> GetAlumnoByIdentificacion(string identificacionAlumno)
+		{
+			var res = _alumnosRepositories.GetAlumnoByIdentificacion(identificacionAlumno);
+			return res;
+		}
+
+		public void AddAlumnos(Alumnos alumno)
 		{
             _alumnosRepositories.AddAlumnos(alumno);
 		}

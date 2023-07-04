@@ -16,6 +16,15 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
+		public IEnumerable<Profesores> GetProfesores()
+		{
+			var procedure = "[Stored_Procedures].[GetProfesores]";
+			var command = CommandType.StoredProcedure;
+
+			var res = PTDapper.ExecuteStoredProcedureAsync<Profesores>(_connectionString, procedure, command);
+			return res.Result;
+		}
+
 		public void AddProfesores(Profesores profesor) 
 		{
 			var procedure = "[Stored_Procedures].[InsertProfesores]";
