@@ -1,11 +1,14 @@
 ﻿using PruebaTecnicaSinco_BackEnd.Models.ModelRequest;
+using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 
 namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 {
 	public interface IAlumnosServices
 	{
-		public void AddAlumnos(Alumnos alumno);
-		public void UpdateAlumnos(Alumnos alumno);
-		public void DeleteAlumnos(string identificacionAlumno);
+		void AddAlumnos(Alumnos alumno);
+		void UpdateAlumnos(Alumnos alumno);
+		void DeleteAlumnos(string identificacionAlumno);
+		IEnumerable<Alumnos> GetAlumnos();
+		IEnumerable<Alumnos> GetAlumnoByIdentificacion(string identificacionAlumno);
 	}
 }

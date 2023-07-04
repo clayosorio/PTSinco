@@ -17,6 +17,15 @@ namespace PruebaTecnicaSinco_BackEnd.Services
 			_connectionString = configuration.GetConnectionString("DBPruebaSinco");
 		}
 
+		public IEnumerable<Asignaturas> GetAsignaturas()
+		{
+			var procedure = "[Stored_Procedures].[GetAsignaturas]";
+			var command = CommandType.StoredProcedure;
+
+			var result = PTDapper.ExecuteStoredProcedureAsync<Asignaturas>(_connectionString, procedure, command);
+			return result.Result;
+		}
+
 		public void AddAsignaturas(Asignaturas asignatura)
 		{
 			var procedure = "[Stored_Procedures].[InsertAsignaturas]";

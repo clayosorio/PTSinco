@@ -11,6 +11,12 @@ namespace PruebaTecnicaSinco_BackEnd.Services.IServices
 			_profesoresRepositories = profesoresRepositories;
 		}
 
+		public IEnumerable<Profesores> GetProfesores()
+		{
+			var res = _profesoresRepositories.GetProfesores();
+			return res;
+		}
+
 		public void AddProfesores(Profesores profesor)
 		{
 			_profesoresRepositories.AddProfesores(profesor);

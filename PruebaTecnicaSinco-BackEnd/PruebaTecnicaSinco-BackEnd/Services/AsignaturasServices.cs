@@ -2,6 +2,7 @@
 using PruebaTecnicaSinco_BackEnd.Models.ModelResponses;
 using PruebaTecnicaSinco_BackEnd.Repositories.IRepositories;
 using PruebaTecnicaSinco_BackEnd.Services.IServices;
+using System.Security.Cryptography.Xml;
 
 namespace PruebaTecnicaSinco_BackEnd.Services
 {
@@ -11,6 +12,12 @@ namespace PruebaTecnicaSinco_BackEnd.Services
         public AsignaturasServices(IAsignaturasRepositories asignaturasRepositories)
         {
 			_asignaturasRepositories = asignaturasRepositories;
+		}
+
+		public IEnumerable<Asignaturas> GetAsignaturas()
+		{
+			var res = _asignaturasRepositories.GetAsignaturas();
+			return res;
 		}
 
 		public void AddAsignaturas(Asignaturas asignatura)

@@ -14,7 +14,20 @@ namespace PruebaTecnicaSinco_BackEnd.Controllers
         {
 			_alumnosServices = alumnosServices;
         }
-        [HttpPost]
+		[HttpGet]
+		public IActionResult GetAlumnos()
+		{
+			var res = _alumnosServices.GetAlumnos();
+			return Ok(res);
+		}
+		[HttpGet]
+		public IActionResult GetAlumnoByIdentificacion(string identificacionAlumno)
+		{
+			var res = _alumnosServices.GetAlumnoByIdentificacion(identificacionAlumno);
+			return Ok(res);
+		}
+
+		[HttpPost]
         public IActionResult AddAlumnos(Alumnos alumno)
         {
 		   _alumnosServices.AddAlumnos(alumno);

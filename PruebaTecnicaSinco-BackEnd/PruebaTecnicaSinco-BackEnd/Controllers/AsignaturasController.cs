@@ -13,6 +13,12 @@ namespace PruebaTecnicaSinco_BackEnd.Controllers
 		{
 			_asignaturasServices = asignaturasServices;
 		}
+		[HttpGet]
+		public IActionResult GetAsignaturas() 
+		{
+			var res = _asignaturasServices.GetAsignaturas();
+			return Ok(res);
+		}
 
 		[HttpPost]
 		public IActionResult AddAsignaturas(Asignaturas asignatura) 
