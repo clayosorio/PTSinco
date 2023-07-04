@@ -2,9 +2,7 @@
 CREATE OR ALTER PROCEDURE [Stored_Procedures].[InsertAsignaturas]
 (
 	@Codigo VARCHAR(450),
-	@Nombre VARCHAR(MAX), 
-	@IdentificacionAlumno NVARCHAR(450) = NULL,
-	@IdentificacionProfesor NVARCHAR(450) = NULL
+	@Nombre VARCHAR(MAX)
 )
 AS
 BEGIN 
@@ -22,8 +20,7 @@ BEGIN
 			(
 				@Codigo,
 				@Nombre,
-				@IdentificacionAlumno, 
-				@IdentificacionProfesor
+				NULL
 			)
 		END
 END

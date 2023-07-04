@@ -1,33 +1,32 @@
 	CREATE OR ALTER PROCEDURE [Stored_Procedures].[CreacionCalificaciones]
 	(
-	      @IdCalificaciones UNIQUEIDENTIFIER,
-          @AñoAcademico VARCHAR(MAX),
+          @AnoAcademico VARCHAR(MAX),
           @IdentificacionAlumno VARCHAR(MAX),
           @NombreAlumno VARCHAR(MAX),
           @CodigoAsignatura VARCHAR(MAX),
 	      @NombreAsignatura VARCHAR(MAX),
-          @CalificacionFinal FLOAT = 0,
+		  @IdentificacionProfesor VARCHAR(450),
+		  @NombreProfesor VARCHAR(MAX),
+          @CalificacionFinal DECIMAL,
           @Aprobo VARCHAR(MAX) = NULL
 	)
 	AS 
 	BEGIN 
 		SET NOCOUNT ON
-
-		Declare @IdentificacionProfesor VARCHAR(450), @NombreProfesor Varchar(450)
-		SELECT @IdentificacionProfesor = pro.IdentificacionProfesor, @NombreProfesor = pro.Nombre
-		FROM Asignaturas asi
-		INNER JOIN Profesores pro ON PRO.IdentificacionProfesor = asi.IdentificacionProfesor
-		WHERE asi.CodigoAsignatura = @CodigoAsignatura
-
-			
+		
 			IF NOT EXISTS(SELECT TOP 1 IdentificacionAlumno from Alumnos where IdentificacionAlumno = @IdentificacionAlumno)
 				BEGIN 
 					THROW 53000, 'El Alumno al que intenta estipular la asignatura no se encuentra registrado', 1;
 				END
 
-		   IF (@IdentificacionProfesor IS NULL)
+		   IF NOT EXISTS(SELECT TOP 1 IdentificacionProfesor FROM Asignaturas WHERE IdentificacionProfesor = @IdentificacionProfesor and CodigoAsignatura = @CodigoAsignatura )
 				BEGIN 
 					THROW 53000, 'La asignatura que intenta otorgar no existe o no está asociada a un profesor', 1;
+				END
+
+			IF EXISTS (SELECT TOP 1 IdCalificaciones FROM Calificaciones WHERE IdentificacionAlumno = @IdentificacionAlumno AND AnoAcademico = @AnoAcademico AND CodigoAsignatura = @CodigoAsignatura)
+				BEGIN 
+					THROW 53000, 'El alumno indicado ya tiene el año y la asignatura indicado asociados ', 1;
 				END
 		
 		BEGIN TRY
@@ -37,7 +36,7 @@
 				VALUES
 				(
 				    NEWID(), 
-					@AñoAcademico, 
+					@AnoAcademico, 
 					@IdentificacionAlumno,
 					@NombreAlumno, 
 					@CodigoAsignatura, 
@@ -45,7 +44,7 @@
 					@IdentificacionProfesor, 
 					@NombreProfesor, 
 					@CalificacionFinal, 
-					@Aprobo
+					dbo.GetAproveOrNot(@CalificacionFinal)
 				)
 				COMMIT;
 				END
